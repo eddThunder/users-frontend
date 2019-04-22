@@ -5,9 +5,10 @@ import { LoginComponent } from './components/login/login.component';
 import { AdminComponent } from './components/admin/admin.component';
 
 
+
 const routes: Routes = [
 
-  {path: '', component: HomeComponent},
+  {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'admin', component: AdminComponent}
 ];

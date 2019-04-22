@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators  } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/Authorization/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   user: FormGroup;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     // this._authService
   }
 
@@ -27,8 +28,8 @@ export class LoginComponent implements OnInit {
     const password = this.user.get('Password').value;
 
     this.authService.getUserAuthentication(username, password).subscribe((data: any) => {
-      localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('user', data);
+      localStorage.setItem('userAccessToken', data.access_token);
+      this.router.navigate(['home']);
     });
   }
 
