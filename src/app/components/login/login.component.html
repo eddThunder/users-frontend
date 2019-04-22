@@ -1,5 +1,24 @@
 
-<form (submit)="login($event)">
-  <input type="text" placeholder="Username">
-  <input type="password" placeholder="Password">
+<form (submit)="login($event)" [formGroup]="user">
+
+  <label>
+       Username:
+      <input type="text" placeholder="Username" formControlName="Username">
+  </label>
+
+  <label>
+       Password:
+      <input type="password" placeholder="Password" formControlName="Password">
+  </label>
+
+  <input type="submit" value="Login" [disabled]="user.invalid" />
+
+  <!-- <div class="error" *ngIf="user.get('Username').hasError('required') && user.get('Username').touched">
+    Username Required
+  </div>
+
+  <div class="error" *ngIf="user.get('Password').hasError('required') && user.get('Password').touched">
+    Password Required
+  </div> -->
+
 </form>
