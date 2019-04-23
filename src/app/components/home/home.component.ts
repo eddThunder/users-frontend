@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
+import { AuthService } from 'src/app/services/Authorization/auth.service';
 
 
 @Component({
@@ -10,10 +11,22 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  userClaims: any;
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    this.getUserClaims();
   }
 
+  getUserClaims() {
+    this.authService.getUserClaims().subscribe(data => {
+      this.userClaims = data;
+      console.log(this.userClaims);
+    });
+  }
+
+   logOut() {
+     this.authService.logout();
+   }
 
 }
