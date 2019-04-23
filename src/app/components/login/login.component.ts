@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators  } from '@angular/forms';
 import { AuthService } from 'src/app/services/Authorization/auth.service';
 import { Router } from '@angular/router';
+import { CommonConstants } from 'src/app/constants/constants';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit {
     const password = this.user.get('Password').value;
 
     this.authService.getUserAuthentication(username, password).subscribe((data: any) => {
-      localStorage.setItem('userAccessToken', data.access_token);
+      localStorage.setItem(CommonConstants.token.usersTokenConstant, data.access_token);
       this.router.navigate(['home']);
     });
   }
