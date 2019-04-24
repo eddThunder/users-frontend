@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/Authorization/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  userClaims: any;
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    this.getUserClaims();
   }
 
+  getUserClaims() {
+    this.authService.getUserClaims().subscribe(data => {
+      this.userClaims = data;
+      console.log(this.userClaims);
+    });
+  }
 }

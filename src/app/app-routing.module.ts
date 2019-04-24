@@ -9,6 +9,7 @@ import { RoleGuard } from './services/guards/role.guard';
 import { Page1Component } from './components/page1/page1.component';
 import { Page2Component } from './components/page2/page2.component';
 import { Page3Component } from './components/page3/page3.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 
 
@@ -16,18 +17,24 @@ const routes: Routes = [
 
   {path: '' , redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: [CommonConstants.roles.ADMIN] }},
-  {path: 'page1', component: Page1Component, canActivate: [AuthGuard, RoleGuard], data: {roles: [CommonConstants.roles.ADMIN,
-                                                                                                CommonConstants.roles.PAGE_1]}},
 
-  {path: 'page2', component: Page2Component, canActivate: [AuthGuard, RoleGuard], data: {roles: [CommonConstants.roles.ADMIN,
-                                                                                                 CommonConstants.roles.PAGE_2]}},
+  {
+    path: 'home', component: LayoutComponent, canActivate: [AuthGuard], children:
+    [
+      {path: 'admin', component: AdminComponent, canActivate: [RoleGuard], data: { roles: [CommonConstants.roles.ADMIN] }},
+      {path: 'page1', component: Page1Component, canActivate: [RoleGuard], data: {roles: [CommonConstants.roles.ADMIN,
+                                                                                                    CommonConstants.roles.PAGE_1]}},
 
-  {path: 'page3', component: Page3Component, canActivate: [AuthGuard, RoleGuard], data: {roles: [CommonConstants.roles.ADMIN, 
-                                                                                                CommonConstants.roles.PAGE_3]}}
+      {path: 'page2', component: Page2Component, canActivate: [RoleGuard], data: {roles: [CommonConstants.roles.ADMIN,
+                                                                                                     CommonConstants.roles.PAGE_2]}},
 
+      {path: 'page3', component: Page3Component, canActivate: [RoleGuard], data: {roles: [CommonConstants.roles.ADMIN,
+                                                                                                    CommonConstants.roles.PAGE_3]}}
+    ]
+  }
 ];
+// {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
