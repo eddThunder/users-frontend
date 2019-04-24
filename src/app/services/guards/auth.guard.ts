@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate, Router } from '@angular/router';
-import { CommonConstants } from '../constants/constants';
+import { CommonConstants } from '../../constants/constants';
 
 
 @Injectable()
@@ -15,6 +15,5 @@ export class AuthGuard implements  CanActivate {
       this.router.navigate(['/login']);
       return false;
     }
-
   }
 }

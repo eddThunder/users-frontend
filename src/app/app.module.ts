@@ -10,7 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/Authorization/auth.service';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './services/guards/auth.guard';
 
 
 @NgModule({
