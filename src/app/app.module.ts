@@ -11,6 +11,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/Authorization/auth.service';
 import { AuthGuard } from './services/guards/auth.guard';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { Page1Component } from './components/page1/page1.component';
+import { Page2Component } from './components/page2/page2.component';
+import { Page3Component } from './components/page3/page3.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 
 @NgModule({
@@ -18,13 +24,19 @@ import { AuthGuard } from './services/guards/auth.guard';
     AppComponent,
     LoginComponent,
     AdminComponent,
-    HomeComponent
+    HomeComponent,
+    NavbarComponent,
+    Page1Component,
+    Page2Component,
+    Page3Component,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule.forRoot()
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

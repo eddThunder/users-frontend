@@ -1,24 +1,29 @@
 
 <form (submit)="login($event)" [formGroup]="user">
 
-  <label>
-       Username:
-      <input type="text" placeholder="Username" formControlName="Username">
-  </label>
+  <div class="imgcontainer">
+    <img src="../../../assets/images/login/xD.JPG" alt="Avatar" class="avatar">
+  </div>
+  
+  <div class="container">
 
-  <label>
-       Password:
-      <input type="password" placeholder="Password" formControlName="Password">
-  </label>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-xs-6">
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Username" formControlName="Username">
+      </div>
+    </div>
+ 
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-xs-6">
+          <label for="password"><b>Password</b></label>
+          <input type="password" placeholder="Password" formControlName="Password">
+      </div>
+    </div>
 
-  <input type="submit" value="Login" [disabled]="user.invalid" />
-
-  <!-- <div class="error" *ngIf="user.get('Username').hasError('required') && user.get('Username').touched">
-    Username Required
+    <button type="submit" value="Login" [disabled]="user.invalid">Login</button>
   </div>
 
-  <div class="error" *ngIf="user.get('Password').hasError('required') && user.get('Password').touched">
-    Password Required
-  </div> -->
-
 </form>
+
+

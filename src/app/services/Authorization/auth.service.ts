@@ -33,15 +33,17 @@ export class AuthService {
 
   hasPermisionFor(allowedRoles: string[]): boolean {
     const userRoles: string[] = JSON.parse(localStorage.getItem(CommonConstants.user.userRolesKeyConstant));
+    let coincidence = false;
 
     userRoles.forEach(userRole => {
       allowedRoles.forEach(allowedRole => {
         if (userRole === allowedRole) {
-          return true;
+          coincidence = true;
+          return false;
         }
       });
     });
-    return false;
+    return coincidence;
   }
 
   logout() {
