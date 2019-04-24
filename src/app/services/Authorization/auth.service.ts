@@ -12,6 +12,7 @@ import { RolesService } from '../roles/roles.service';
 export class AuthService {
 
   availableRoles: any;
+  currentUser: any;
 
   constructor(private http: HttpClient, private router: Router, private roleService: RolesService) { }
 
@@ -22,9 +23,15 @@ export class AuthService {
     return this.http.post(url, body,  { headers: requestHeader} );
   }
 
-  getUserClaims() {
-    const reqHeaders = new HttpHeaders({Authorization : 'Bearer ' + localStorage.getItem(CommonConstants.token.usersTokenConstant)});
-    return this.http.get(environment.ApiBaseUrl + 'users/claims', {headers: reqHeaders});
+  getCurrentUser() {
+    if (this.currentUser != null) {
+      return this.currentUser;
+    } else {
+      this.getUserClaims().subscribe(data => {
+        this.currentUser = data;
+        return this.currentUser;
+      });
+    }
   }
 
   getStoredAuthorizationToken(): string {
@@ -48,10 +55,17 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem(CommonConstants.token.usersTokenConstant);
+    this.currentUser = null;
     this.router.navigate(['login']);
   }
 
   private LoadAvailableRoles() {
     this.roleService.getAllRoles().subscribe(data => this.availableRoles = data);
   }
+
+  private getUserClaims() {
+    const reqHeaders = new HttpHeaders({Authorization : 'Bearer ' + localStorage.getItem(CommonConstants.token.usersTokenConstant)});
+    return this.http.get(environment.ApiBaseUrl + 'users/claims', {headers: reqHeaders});
+  }
+
 }

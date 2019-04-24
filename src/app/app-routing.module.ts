@@ -21,20 +21,31 @@ const routes: Routes = [
   {
     path: 'home', component: LayoutComponent, canActivate: [AuthGuard], children:
     [
-      {path: 'admin', component: AdminComponent, canActivate: [RoleGuard], data: { roles: [CommonConstants.roles.ADMIN] }},
-      {path: 'page1', component: Page1Component, canActivate: [RoleGuard], data: {roles: [CommonConstants.roles.ADMIN,
-                                                                                                    CommonConstants.roles.PAGE_1]}},
-
-      {path: 'page2', component: Page2Component, canActivate: [RoleGuard], data: {roles: [CommonConstants.roles.ADMIN,
-                                                                                                     CommonConstants.roles.PAGE_2]}},
-
-      {path: 'page3', component: Page3Component, canActivate: [RoleGuard], data: {roles: [CommonConstants.roles.ADMIN,
-                                                                                                    CommonConstants.roles.PAGE_3]}}
+      {
+        path: 'admin',
+        component: AdminComponent,
+        canActivate: [RoleGuard],
+        data: { roles: [CommonConstants.roles.ADMIN] }
+      },
+      {
+        path: 'page1', component: Page1Component,
+        canActivate: [RoleGuard],
+        data: { roles: [CommonConstants.roles.ADMIN, CommonConstants.roles.PAGE_1]}
+      },
+      {
+        path: 'page2',
+        component: Page2Component,
+        canActivate: [RoleGuard],
+        data: {roles: [CommonConstants.roles.ADMIN, CommonConstants.roles.PAGE_2]}
+      },
+      {
+        path: 'page3',
+        component: Page3Component,
+        canActivate: [RoleGuard],
+        data: {roles: [CommonConstants.roles.ADMIN, CommonConstants.roles.PAGE_3]}}
     ]
   }
 ];
-// {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
