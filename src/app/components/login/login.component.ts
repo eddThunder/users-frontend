@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.getUserAuthentication(username, password).subscribe((data: any) => {
       localStorage.setItem(CommonConstants.token.usersTokenConstant, data.access_token);
+      localStorage.setItem(CommonConstants.user.userRolesKeyConstant, data.roles);
       this.router.navigate(['home']);
     });
   }

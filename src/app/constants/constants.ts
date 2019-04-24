@@ -10,5 +10,8 @@ export const CommonConstants = {
         PAGE_2: 'PAGE_2',
         PAGE_3: 'PAGE_3',
         ADMIN: 'ADMIN'
+    },
+    user: {
+        userRolesKeyConstant: 'userRoles'
     }
 };

@@ -31,8 +31,16 @@ export class AuthService {
       return localStorage.getItem(CommonConstants.token.usersTokenConstant);
   }
 
-  hasPermisionFor(roleList: string[]): boolean {
+  hasPermisionFor(allowedRoles: string[]): boolean {
+    const userRoles: string[] = JSON.parse(localStorage.getItem(CommonConstants.user.userRolesKeyConstant));
 
+    userRoles.forEach(userRole => {
+      allowedRoles.forEach(allowedRole => {
+        if (userRole === allowedRole) {
+          return true;
+        }
+      });
+    });
     return false;
   }
 
