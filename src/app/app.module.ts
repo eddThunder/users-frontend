@@ -18,6 +18,7 @@ import { Page2Component } from './components/page2/page2.component';
 import { Page3Component } from './components/page3/page3.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { AuthInterceptorService } from './services/Authorization/Interceptor/auth-interceptor.service';
+import { UserModalComponent } from './components/modals/user-modal/user-modal.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AuthInterceptorService } from './services/Authorization/Interceptor/aut
     Page1Component,
     Page2Component,
     Page3Component,
-    LayoutComponent
+    LayoutComponent,
+    UserModalComponent
   ],
   imports: [
     BrowserModule,

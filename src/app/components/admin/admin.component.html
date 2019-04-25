@@ -19,10 +19,23 @@
         <th scope="row">{{user.Id}}</th>
         <td>{{user.UserName}}</td>
         <td>
-            <button type="button" class="btn btn-light">Modify</button>-
+            <button type="button" (click)="getUser(user.Id)" class="btn btn-light">Modify</button>
+            <!-- <button type="button" (click)="showDialog = !showDialog" class="btn btn-light">Modify</button>- -->
             <button type="button" class="btn btn-danger">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
+
 </div>
+
+<!--Introduciremos en el modal el input con el usuario-->
+<app-user-modal [(visible)]="showDialog">
+  <h1>User details</h1>
+  <h2>aayayaay</h2>
+
+  <button (click)="showDialog = !showDialog" class="btn">Close</button>
+  <button class="btn">Update</button>
+</app-user-modal>
+
+

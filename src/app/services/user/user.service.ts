@@ -14,9 +14,11 @@ export class UserService {
 
 
   getAllUsers() {
-    // const reqHeaders = new HttpHeaders({Authorization : 'Bearer ' + localStorage.getItem(CommonConstants.token.usersTokenConstant)});
-    // return this.http.get(environment.ApiBaseUrl + 'users/all', { headers: reqHeaders });
     return this.http.get(environment.ApiBaseUrl + 'users/all');
+  }
+
+  getUserById(userId: number) {
+    return this.http.get(environment.ApiBaseUrl + 'users/' + userId);
   }
 }
 
