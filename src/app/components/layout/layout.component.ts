@@ -16,10 +16,7 @@ export class LayoutComponent implements OnInit {
     this.getUserClaims();
   }
 
-  getUserClaims() { 
-    this.authService.getCurrentUser().subscribe(data => {
-      this.userClaims = data;
-      console.log(this.userClaims);
-    });
+  getUserClaims() {
+    this.authService.getCurrentUser();
   }
 }

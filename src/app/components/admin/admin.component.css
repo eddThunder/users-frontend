@@ -1,0 +1,10 @@
+.panel {
+    size: 50%;
+}
+.container {
+    margin-top: 05em;
+}
+
+.display-4.titleAdminPanel{
+    margin-bottom: 0.5em !important;
+}

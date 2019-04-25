@@ -11,7 +11,9 @@ export class RolesService {
   constructor(private http: HttpClient) { }
 
   getAllRoles() {
-    const reqHeaders = new HttpHeaders({Authorization : 'Bearer ' + localStorage.getItem(CommonConstants.token.usersTokenConstant)});
-    return this.http.get(environment.ApiBaseUrl + 'api/roles/all', {headers: reqHeaders});
+    // const reqHeaders = new HttpHeaders({Authorization : 'Bearer ' + localStorage.getItem(CommonConstants.token.usersTokenConstant)});
+    // return this.http.get(environment.ApiBaseUrl + 'roles/all', {headers: reqHeaders});
+
+    return this.http.get(environment.ApiBaseUrl + 'roles/all');
   }
 }

@@ -11,16 +11,15 @@ import { RolesService } from '../roles/roles.service';
 })
 export class AuthService {
 
-  availableRoles: any;
   currentUser: any;
 
-  constructor(private http: HttpClient, private router: Router, private roleService: RolesService) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   getUserAuthentication(username: string, password: string) {
     const url = environment.ApiBaseUrl + 'token';
     const body = `grant_type=password&username=${username}&password=${password}`;
-    const requestHeader = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-    return this.http.post(url, body,  { headers: requestHeader} );
+    // const requestHeader = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+    return this.http.post(url, body);
   }
 
   getCurrentUser() {
@@ -59,13 +58,11 @@ export class AuthService {
     this.router.navigate(['login']);
   }
 
-  private LoadAvailableRoles() {
-    this.roleService.getAllRoles().subscribe(data => this.availableRoles = data);
-  }
-
   private getUserClaims() {
-    const reqHeaders = new HttpHeaders({Authorization : 'Bearer ' + localStorage.getItem(CommonConstants.token.usersTokenConstant)});
-    return this.http.get(environment.ApiBaseUrl + 'users/claims', {headers: reqHeaders});
+    // const reqHeaders = new HttpHeaders({Authorization : 'Bearer ' + localStorage.getItem(CommonConstants.token.usersTokenConstant)});
+    // return this.http.get(environment.ApiBaseUrl + 'users/claims', {headers: reqHeaders});
+
+    return this.http.get(environment.ApiBaseUrl + 'users/claims');
   }
 
 }

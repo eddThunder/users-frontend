@@ -8,7 +8,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { HomeComponent } from './components/home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/Authorization/auth.service';
 import { AuthGuard } from './services/guards/auth.guard';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -17,6 +17,7 @@ import { Page1Component } from './components/page1/page1.component';
 import { Page2Component } from './components/page2/page2.component';
 import { Page3Component } from './components/page3/page3.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { AuthInterceptorService } from './services/Authorization/Interceptor/auth-interceptor.service';
 
 
 @NgModule({
@@ -38,7 +39,13 @@ import { LayoutComponent } from './components/layout/layout.component';
     HttpClientModule,
     NgbModule.forRoot()
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
