@@ -1,10 +1,7 @@
 
 <div class="container">
 
-
-    
  <h1 class="display-4 titleAdminPanel">Administration Panel</h1>
-
 
   <table class="table table-hover">
     <thead>
@@ -29,13 +26,8 @@
 
 </div>
 
-<!--Introduciremos en el modal el input con el usuario-->
-<app-user-modal [(visible)]="showDialog">
-  <h1>User details</h1>
-  <h2>aayayaay</h2>
 
-  <button (click)="showDialog = !showDialog" class="btn">Close</button>
-  <button class="btn">Update</button>
-</app-user-modal>
+<!--Modal de alta y/o modificación-->
+<app-user-modal [selectedUser]="selectedUser" [(visible)]="showDialog"></app-user-modal>
 
 

@@ -16,6 +16,7 @@ export class AdminComponent implements OnInit {
 
 
   showmodal = true;
+  showDialog = false;
 
   constructor(private roleService: RolesService, private usersService: UserService) { }
 
@@ -25,9 +26,15 @@ export class AdminComponent implements OnInit {
   }
 
   getUser(id: number) {
+
     this.usersService.getUserById(id).subscribe(data => {
       this.selectedUser = data;
-      console.log(this.selectedUser);
+      this.showDialog = true;
     });
+  }
+
+  update() {
+    // const username = this.selectedUser.get('Username').value;
+    // const password = this.selectedUser.get('Password').value;
   }
 }

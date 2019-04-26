@@ -19,6 +19,8 @@ import { Page3Component } from './components/page3/page3.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { AuthInterceptorService } from './services/Authorization/Interceptor/auth-interceptor.service';
 import { UserModalComponent } from './components/modals/user-modal/user-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import { UserModalComponent } from './components/modals/user-modal/user-modal.co
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [AuthService, AuthGuard,
     {

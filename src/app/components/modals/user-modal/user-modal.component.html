@@ -1,5 +1,42 @@
 <div [@dialog] *ngIf="visible" class="dialog">
-    <ng-content></ng-content>
-    <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+  <!-- <ng-content></ng-content> -->
+
+  <div class="container">
+
+    <form [formGroup]="userForm">
+      <h3>User details</h3>
+
+      <div class="row">
+        <div class="form-group">
+          <div class="col-lg-12 col-md-12 col-xs-6">
+            <label for="Username"><b>Username</b></label>
+            <input class="form-control" type="text" placeholder="Username" value="{{selectedUser?.UserName}}" required
+              formControlName="Username">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-6">
+          <label for="password"><b>Password</b></label>
+          <input class="form-control" type="password" placeholder="Password" value="{{selectedUser?.Password}}" required
+            formControlName="Password">
+        </div>
+      </div>
+
+     <label><b>Roles</b></label>
+      <ng-container *ngFor="let role of roles">
+        <div class="form-group">        
+          <div class="checkbox" *ngIf="role.RoleName !== 'ADMIN'">
+            <label><input  type="checkbox" value="role.Id">{{role.RoleName}}</label>
+          </div>
+        </div>
+      </ng-container>
+
+      <button (click)="showDialog = !showDialog" class="btn">Close</button>
+      <button type="submit" class="btn">Update</button>
+    </form>
   </div>
-  <div *ngIf="visible" class="overlay" (click)="close()"></div>
+  <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+</div>
+<div *ngIf="visible" class="overlay" (click)="close()"></div>

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonConstants } from 'src/app/constants/constants';
 import { RolesService } from '../roles/roles.service';
+import { User } from 'src/app/models/User';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ import { RolesService } from '../roles/roles.service';
 })
 export class AuthService {
 
-  currentUser: any;
+  currentUser: User;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -26,7 +27,7 @@ export class AuthService {
     if (this.currentUser != null) {
       return this.currentUser;
     } else {
-      this.getUserClaims().subscribe(data => {
+      this.getUserClaims().subscribe((data: User) => {
         this.currentUser = data;
         return this.currentUser;
       });
