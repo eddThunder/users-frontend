@@ -30,32 +30,35 @@ export class UserModalComponent implements OnInit {
   @Input() closable = true;
   @Input() visible: boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   @Input() selectedUser: User;
 
 
   userForm: FormGroup;
   rolesList: Role[];
-  roleStruct: any;
 
   constructor(private roleService: RolesService, private fb: FormBuilder) {
 
    }
 
   ngOnInit() {
-    this.configForm();
+
+    this.configModalForm();
     this.getRolesList();
 
+
     if (this.selectedUser !== null) {
-      // call userService to modify a user
-      // update
+        // this.loadDataForEdit(this.selectedUser);
       } else {
         // New user... get the form fata and call userService to add a new user
         // create
       }
   }
 
-  preSelecttUsersRoles() {
+  get roleControlArray(): FormArray {
+    if (!this.userForm) { return; }
 
+    return this.userForm.get('Roles') as FormArray;
   }
 
   close() {
@@ -64,43 +67,19 @@ export class UserModalComponent implements OnInit {
     this.selectedUser = null;
   }
 
-  submitData() {
-    if (this.selectedUser !== null) {
-        // call userService to modify a user
-        // update
-    } else {
-      // New user... get the form fata and call userService to add a new user
-      // create
-    }
-  }
-
   private getRolesList() {
    this.roleService.getAllRoles().subscribe((data: Role[] ) => {
      this.rolesList = data;
     });
   }
 
-  private configForm() {
-
-    // const roleStruct: Role[] = [];
-
-    // this.rolesList.forEach(role => {
-    //   this.selectedUser.roles.forEach(userRole => {
-    //      if (role.id === userRole.id) {
-    //         roleStruct.push({roleName: role.roleName, id: role.id, selected: true });
-    //      } else {
-    //         roleStruct.push({roleName: role.roleName, id: role.id, selected: false });
-    //      }
-    //   });
-    // });
-
+  private configModalForm() {
     const rList = ['PAGE_1', 'PAGE_2', 'PAGE_3'];
     this.userForm = this.fb.group({
       Username: ['', [Validators.required]],
       Password: ['', [Validators.required]],
       Roles: this.mapToCheckboxArrayGroup(rList)
     });
-
   }
 
   private mapToCheckboxArrayGroup(data: string[]): FormArray {
@@ -110,11 +89,24 @@ export class UserModalComponent implements OnInit {
         selected: false
       });
     }));
-}
+  }
 
-  get roleControlArray(): FormArray {
-    if (!this.userForm) { return; }
+  private loadDataForEdit(data: User): void {
 
-    return this.userForm.get('Roles') as FormArray;
+    this.userForm.patchValue({
+      Username: data.username,
+      Password: data.password,
+      Roles: this.prefillRoleSelection(this.userForm.get('roles').value, data.roles as Role[])
+    });
+  }
+
+  private prefillRoleSelection(role, selectedRoles) {
+    return role.map((i) => {
+      if (selectedRoles.includes(i.name)) {
+        i.selected = true;
+      }
+
+      return i;
+    });
   }
 }

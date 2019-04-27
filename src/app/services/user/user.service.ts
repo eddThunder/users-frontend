@@ -20,5 +20,9 @@ export class UserService {
   getUserById(userId: number) {
     return this.http.get(environment.ApiBaseUrl + 'users/' + userId);
   }
+
+  deleteUser(userId: number) {
+    return this.http.get(environment.ApiBaseUrl + 'users/delete/' + userId);
+  }
 }
 
