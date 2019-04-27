@@ -3,6 +3,8 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/ro
 import { Observable } from 'rxjs';
 import { CanActivate } from '@angular/router/src/utils/preactivation';
 import { AuthService } from '../Authorization/auth.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +12,21 @@ import { AuthService } from '../Authorization/auth.service';
 export class RoleGuard implements CanActivate {
   path: ActivatedRouteSnapshot[];
   route: ActivatedRouteSnapshot;
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService, private toastr: ToastrService) {}
   canActivate(
    next: ActivatedRouteSnapshot,
    state: RouterStateSnapshot): boolean {
     const roles = next.data.roles as Array<string>;
     if (roles) {
-      return this.authService.hasPermisionFor(roles);
+      const hasPermision = this.authService.hasPermisionFor(roles);
+      if (!hasPermision) {
+        this.toastr.error('UNAUTHORIZED');
+      }
+
+      return hasPermision;
     } else {
       // this.router.navigate(['/forbidden']);
-      // toast
+      this.toastr.error('UNAUTHORIZED');
       return false;
     }
    }

@@ -25,13 +25,41 @@
       </div>
 
      <label><b>Roles</b></label>
-      <ng-container *ngFor="let role of roles">
-        <div class="form-group">        
+
+     <!--<ng-container *ngFor="let role of rolesList; let i = index">-->
+      <!-- <ng-container>
+
+        <div class="form-group" *ngFor="let role of rolesList; let i = index">        
           <div class="checkbox" *ngIf="role.RoleName !== 'ADMIN'">
-            <label><input  type="checkbox" value="role.Id">{{role.RoleName}}</label>
+            <label><input [formControl]="role.get('selected')" type="checkbox" id="role.Id">{{role.RoleName}}</label>
           </div>
         </div>
-      </ng-container>
+
+      </ng-container> -->
+
+      <ng-container>
+        
+          <div class="form-group" *ngFor="let role of roleControlArray.controls; let i = index">        
+            <div class="checkbox" *ngIf="role.RoleName !== 'ADMIN'">
+              <label><input [formControl]="role.get('selected')" type="checkbox" id="role.Id">
+                {{role.get('name').value}}
+              </label>
+            </div>
+          </div>
+  
+        </ng-container>
+
+
+      <!--<div class="col-md-12 mg-top-15">
+  <h5>Toppings</h5>
+  <div class="ToppingsSelector" formArrayName="toppings">
+    <div class="ToppingsSelector__item" *ngFor="let topping of toppingsArray.controls" [formGroup]="topping" >
+      <mat-checkbox [formControl]="topping.get('selected')">
+        {{topping.get('name').value}}
+      </mat-checkbox>
+    </div>
+  </div>
+</div>-->
 
       <button (click)="showDialog = !showDialog" class="btn">Close</button>
       <button type="submit" class="btn">Update</button>

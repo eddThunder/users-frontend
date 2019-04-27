@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RolesService } from 'src/app/services/roles/roles.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-admin',
@@ -12,22 +14,30 @@ export class AdminComponent implements OnInit {
   allRoles: any;
   usersList: any;
 
-  selectedUser: any;
+  selectedUser: User;
 
 
   showmodal = true;
   showDialog = false;
 
-  constructor(private roleService: RolesService, private usersService: UserService) { }
+  loading = false;
+
+  constructor(private roleService: RolesService, private usersService: UserService, private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.roleService.getAllRoles().subscribe(data => this.allRoles = data);
-    this.usersService.getAllUsers().subscribe(data => this.usersList = data);
+    this.loading = true;
+    this.roleService.getAllRoles().subscribe(data => {
+      this.allRoles = data;
+    });
+
+    this.usersService.getAllUsers().subscribe((data: User[]) => {
+      this.usersList = data;
+    });
   }
 
   getUser(id: number) {
-
-    this.usersService.getUserById(id).subscribe(data => {
+    this.loading = true;
+    this.usersService.getUserById(id).subscribe((data: User ) => {
       this.selectedUser = data;
       this.showDialog = true;
     });

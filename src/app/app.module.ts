@@ -20,8 +20,8 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { AuthInterceptorService } from './services/Authorization/Interceptor/auth-interceptor.service';
 import { UserModalComponent } from './components/modals/user-modal/user-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
+import { ToastrModule } from 'ngx-toastr';
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    NgxLoadingModule.forRoot({})
   ],
   providers: [AuthService, AuthGuard,
     {

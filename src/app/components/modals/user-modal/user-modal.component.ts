@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { User } from 'src/app/models/User';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { RolesService } from 'src/app/services/roles/roles.service';
 import { Role } from 'src/app/models/Role';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import * as _ from 'lodash';
 
 
 @Component({
@@ -29,18 +30,32 @@ export class UserModalComponent implements OnInit {
   @Input() closable = true;
   @Input() visible: boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() selectedUser: any;
+  @Input() selectedUser: User;
 
 
   userForm: FormGroup;
-  roles: Role[];
+  rolesList: Role[];
+  roleStruct: any;
 
-  constructor(private roleService: RolesService) {
+  constructor(private roleService: RolesService, private fb: FormBuilder) {
+
    }
 
   ngOnInit() {
     this.configForm();
     this.getRolesList();
+
+    if (this.selectedUser !== null) {
+      // call userService to modify a user
+      // update
+      } else {
+        // New user... get the form fata and call userService to add a new user
+        // create
+      }
+  }
+
+  preSelecttUsersRoles() {
+
   }
 
   close() {
@@ -61,16 +76,45 @@ export class UserModalComponent implements OnInit {
 
   private getRolesList() {
    this.roleService.getAllRoles().subscribe((data: Role[] ) => {
-     this.roles = data;
-     console.log(this.roles);
+     this.rolesList = data;
     });
   }
 
   private configForm() {
-    this.userForm = new FormGroup({
-      Username: new FormControl('', [Validators.required]),
-      Password: new FormControl('', [Validators.required]),
+
+    // const roleStruct: Role[] = [];
+
+    // this.rolesList.forEach(role => {
+    //   this.selectedUser.roles.forEach(userRole => {
+    //      if (role.id === userRole.id) {
+    //         roleStruct.push({roleName: role.roleName, id: role.id, selected: true });
+    //      } else {
+    //         roleStruct.push({roleName: role.roleName, id: role.id, selected: false });
+    //      }
+    //   });
+    // });
+
+    const rList = ['PAGE_1', 'PAGE_2', 'PAGE_3'];
+    this.userForm = this.fb.group({
+      Username: ['', [Validators.required]],
+      Password: ['', [Validators.required]],
+      Roles: this.mapToCheckboxArrayGroup(rList)
     });
+
   }
 
+  private mapToCheckboxArrayGroup(data: string[]): FormArray {
+    return this.fb.array(data.map((i) => {
+      return this.fb.group({
+        name: i,
+        selected: false
+      });
+    }));
+}
+
+  get roleControlArray(): FormArray {
+    if (!this.userForm) { return; }
+
+    return this.userForm.get('Roles') as FormArray;
+  }
 }
