@@ -60,9 +60,6 @@ export class AuthService {
   }
 
   private getUserClaims() {
-    // const reqHeaders = new HttpHeaders({Authorization : 'Bearer ' + localStorage.getItem(CommonConstants.token.usersTokenConstant)});
-    // return this.http.get(environment.ApiBaseUrl + 'users/claims', {headers: reqHeaders});
-
     return this.http.get(environment.ApiBaseUrl + 'users/claims');
   }
 

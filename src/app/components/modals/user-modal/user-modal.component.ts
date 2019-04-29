@@ -38,13 +38,15 @@ export class UserModalComponent implements OnInit {
   rolesList: Role[];
 
   constructor(private roleService: RolesService, private fb: FormBuilder) {
-
+    this.rolesList = [];
    }
 
   ngOnInit() {
 
-    this.configModalForm();
-    this.getRolesList();
+    this.getRolesList().then(data => {
+      this.rolesList = data;
+      this.configModalForm(this.selectedUser);
+    });
 
 
     if (this.selectedUser !== null) {
@@ -67,46 +69,31 @@ export class UserModalComponent implements OnInit {
     this.selectedUser = null;
   }
 
-  private getRolesList() {
-   this.roleService.getAllRoles().subscribe((data: Role[] ) => {
-     this.rolesList = data;
-    });
+  private getRolesList(): Promise<any> {
+    return this.roleService.getAllRoles().toPromise();
   }
 
-  private configModalForm() {
-    const rList = ['PAGE_1', 'PAGE_2', 'PAGE_3'];
+  public configModalForm(selectedUser?: User) {
     this.userForm = this.fb.group({
-      Username: ['', [Validators.required]],
-      Password: ['', [Validators.required]],
-      Roles: this.mapToCheckboxArrayGroup(rList)
+      Username: [selectedUser ? selectedUser.UserName : '', [Validators.required]],
+      Password: [selectedUser ? selectedUser.Password : '', [Validators.required]],
+      Roles: this.mapToCheckboxArrayGroup(selectedUser)
     });
   }
 
-  private mapToCheckboxArrayGroup(data: string[]): FormArray {
-    return this.fb.array(data.map((i) => {
-      return this.fb.group({
-        name: i,
-        selected: false
-      });
-    }));
-  }
+  private mapToCheckboxArrayGroup(user?: User): FormArray {
 
-  private loadDataForEdit(data: User): void {
+    const fbList = [];
 
-    this.userForm.patchValue({
-      Username: data.username,
-      Password: data.password,
-      Roles: this.prefillRoleSelection(this.userForm.get('roles').value, data.roles as Role[])
+
+    this.rolesList.forEach(element => {
+      fbList.push(this.fb.group({
+        id: element.Id,
+        roleName: element.RoleName,
+        selected: user ? _.some(user.Roles, { Id: element.Id}) : false
+      }));
     });
-  }
 
-  private prefillRoleSelection(role, selectedRoles) {
-    return role.map((i) => {
-      if (selectedRoles.includes(i.name)) {
-        i.selected = true;
-      }
-
-      return i;
-    });
+    return new FormArray(fbList);
   }
 }
