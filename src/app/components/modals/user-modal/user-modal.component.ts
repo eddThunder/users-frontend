@@ -6,6 +6,7 @@ import { RolesService } from 'src/app/services/roles/roles.service';
 import { Role } from 'src/app/models/Role';
 import * as _ from 'lodash';
 import { UserService } from 'src/app/services/user/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -36,7 +37,11 @@ export class UserModalComponent implements OnInit {
   userForm: FormGroup;
   rolesList: Role[];
 
-  constructor(private roleService: RolesService, private fb: FormBuilder, private userService: UserService) {
+  constructor(private roleService: RolesService,
+              private fb: FormBuilder,
+              private userService: UserService,
+              private toastr: ToastrService) {
+
     this.rolesList = [];
    }
 
@@ -63,15 +68,27 @@ export class UserModalComponent implements OnInit {
   submitData() {
     const user = this.userForm.getRawValue();
     if (this.selectedUser) {
-      // this.userService.updateUser(user);
+
       console.log('updating user...');
       user.Roles = this.filterSelectedRoles(user.Roles);
-      console.log(user);
+      user.Id =  this.selectedUser.Id;
+      this.userService.updateUser(user).subscribe(data => {
+
+        this.toastr.success('User updated successfully! :)');
+      }, err => {
+        this.toastr.error('Something went wrong on update... :(');
+      });
+
     } else {
+
       console.log('creating user...');
       user.Roles = this.filterSelectedRoles(user.Roles);
-      console.log(user);
-      // this.userService.createUser(user);
+
+      this.userService.createUser(user).subscribe(data => {
+        this.toastr.success('User created successfully! :)');
+      }, err => {
+        this.toastr.error('Something went wrong on create... :(');
+      });
     }
   }
 

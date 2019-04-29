@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { CommonConstants } from 'src/app/constants/constants';
 import { User } from 'src/app/models/User';
 
 
@@ -13,7 +12,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   createUser(user: User) {
-    return this.http.post(environment.ApiBaseUrl + 'users/add', user);
+    return this.http.put(environment.ApiBaseUrl + 'users/add', user);
   }
 
   deleteUser(userId: number) {
@@ -30,6 +29,6 @@ export class UserService {
 
   getUserById(userId: number) {
     return this.http.get(environment.ApiBaseUrl + 'users/' + userId);
-  } 
+  }
 }
 
