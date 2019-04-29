@@ -4,6 +4,7 @@
   <h1 class="display-4 titleAdminPanel">Administration Panel</h1>
 
   <div *ngIf="usersList">
+      <button type="button" (click)="newUser()" class="btn btn-success">Create user</button>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -19,7 +20,6 @@
           <td>{{user.UserName}}</td>
           <td>
             <button type="button" [disabled]="allowedToOperate(user.Id)" (click)="getUser(user.Id)" class="btn btn-light">Modify</button>
-            <!-- <button type="button" (click)="showDialog = !showDialog" class="btn btn-light">Modify</button>- -->
             <button type="button" [disabled]="allowedToOperate(user.Id)" (click)="deleteUser(user.Id)" class="btn btn-danger">Delete</button>
           </td>
         </tr>

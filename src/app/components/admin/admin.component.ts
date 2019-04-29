@@ -50,12 +50,15 @@ export class AdminComponent implements OnInit {
   getUser(id: number) {
     this.loading = true;
     this.usersService.getUserById(id).subscribe((data: User ) => {
+
       this.selectedUser = data;
-
       this.modal.configModalForm(this.selectedUser);
-
       this.showDialog = true;
     });
+  }
+
+  newUser() {
+    this.showDialog = true;
   }
 
   deleteUser(id: number) {
@@ -79,11 +82,6 @@ export class AdminComponent implements OnInit {
   }
 
   allowedToOperate(userId: number): boolean {
-    return userId === this.loggedUser.Id;
-  }
-
-  update() {
-    // const username = this.selectedUser.get('Username').value;
-    // const password = this.selectedUser.get('Password').value;
+    return  this.loggedUser ? userId === this.loggedUser.Id : false;
   }
 }

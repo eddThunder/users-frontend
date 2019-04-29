@@ -60,6 +60,21 @@ export class UserModalComponent implements OnInit {
     this.selectedUser = null;
   }
 
+  submitData() {
+    const user = this.userForm.getRawValue();
+    if (this.selectedUser) {
+      // this.userService.updateUser(user);
+      console.log('updating user...');
+      user.Roles = this.filterSelectedRoles(user.Roles);
+      console.log(user);
+    } else {
+      console.log('creating user...');
+      user.Roles = this.filterSelectedRoles(user.Roles);
+      console.log(user);
+      // this.userService.createUser(user);
+    }
+  }
+
   private getRolesList(): Promise<any> {
     return this.roleService.getAllRoles().toPromise();
   }
@@ -87,15 +102,8 @@ export class UserModalComponent implements OnInit {
     return new FormArray(fbList);
   }
 
-  submitData() {
-    const user = this.userForm.getRawValue();
-    if (this.selectedUser) {
-      // this.userService.updateUser(user);
-      console.log('updating user');
-      console.log(user);
-    } else {
-      console.log('creating user');
-      // this.userService.createUser(user);
-    }
+  private filterSelectedRoles(roles: Role[]) {
+    const selectedRoles = _.filter(roles, {selected: true});
+    return selectedRoles;
   }
 }
