@@ -29,32 +29,19 @@
 
       <ng-container *ngIf="roleControlArray">
         
-        
-          <div class="form-group" *ngFor="let role of roleControlArray.controls; let i = index">        
-            <div class="checkbox" *ngIf="role.get('roleName')?.value !== 'ADMIN'">
-              <label>
-                <input [formControl]="role.get('selected')" type="checkbox">
-                {{role.get('roleName').value}}
-              </label>
-            </div>
+        <div class="form-group" *ngFor="let role of roleControlArray.controls; let i = index">        
+          <div class="checkbox" *ngIf="role.get('roleName')?.value !== 'ADMIN'">
+            <label>
+              <input [formControl]="role.get('selected')" type="checkbox">
+              {{role.get('roleName').value}}
+            </label>
           </div>
-  
-        </ng-container>
-
-
-      <!--<div class="col-md-12 mg-top-15">
-  <h5>Toppings</h5>
-  <div class="ToppingsSelector" formArrayName="toppings">
-    <div class="ToppingsSelector__item" *ngFor="let topping of toppingsArray.controls" [formGroup]="topping" >
-      <mat-checkbox [formControl]="topping.get('selected')">
-        {{topping.get('name').value}}
-      </mat-checkbox>
-    </div>
-  </div>
-</div>-->
+        </div>
+      </ng-container>
 
       <button (click)="showDialog = !showDialog" class="btn">Close</button>
-      <button type="submit" class="btn">Update</button>
+      <button *ngIf="selectedUser" [disabled]="userForm.invalid" (click)="submitData()" type="submit" class="btn">Update</button>
+      <button *ngIf="!selectedUser" [disabled]="userForm.invalid" (click)="submitData()" type="submit" class="btn">Create</button>
     </form>
   </div>
   <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>

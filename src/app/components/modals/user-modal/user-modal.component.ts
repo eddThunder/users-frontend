@@ -1,12 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { User } from 'src/app/models/User';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { RolesService } from 'src/app/services/roles/roles.service';
 import { Role } from 'src/app/models/Role';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
+import { UserService } from 'src/app/services/user/user.service';
 
 
 @Component({
@@ -37,7 +36,7 @@ export class UserModalComponent implements OnInit {
   userForm: FormGroup;
   rolesList: Role[];
 
-  constructor(private roleService: RolesService, private fb: FormBuilder) {
+  constructor(private roleService: RolesService, private fb: FormBuilder, private userService: UserService) {
     this.rolesList = [];
    }
 
@@ -47,14 +46,6 @@ export class UserModalComponent implements OnInit {
       this.rolesList = data;
       this.configModalForm(this.selectedUser);
     });
-
-
-    if (this.selectedUser !== null) {
-        // this.loadDataForEdit(this.selectedUser);
-      } else {
-        // New user... get the form fata and call userService to add a new user
-        // create
-      }
   }
 
   get roleControlArray(): FormArray {
@@ -85,7 +76,6 @@ export class UserModalComponent implements OnInit {
 
     const fbList = [];
 
-
     this.rolesList.forEach(element => {
       fbList.push(this.fb.group({
         id: element.Id,
@@ -95,5 +85,17 @@ export class UserModalComponent implements OnInit {
     });
 
     return new FormArray(fbList);
+  }
+
+  submitData() {
+    const user = this.userForm.getRawValue();
+    if (this.selectedUser) {
+      // this.userService.updateUser(user);
+      console.log('updating user');
+      console.log(user);
+    } else {
+      console.log('creating user');
+      // this.userService.createUser(user);
+    }
   }
 }

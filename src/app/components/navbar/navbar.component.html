@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" (click)="false" href="#">USERS MANAGEMENT</a>
+  <a class="navbar-brand" routerLink="/home">USERS MANAGEMENT</a>
 
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
@@ -27,10 +27,5 @@
   
   <ng-container *ngIf="userClaims">
     <h1>HELLO {{userClaims.UserName | uppercase }}!</h1>
-  
-    <!-- <div *ngFor="let role of userClaims.Roles">
-      <p>{{role.RoleName}}</p>
-    </div> -->
-  
   </ng-container>
   
