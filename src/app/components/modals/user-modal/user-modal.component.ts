@@ -73,8 +73,8 @@ export class UserModalComponent implements OnInit {
       user.Roles = this.filterSelectedRoles(user.Roles);
       user.Id =  this.selectedUser.Id;
       this.userService.updateUser(user).subscribe(data => {
-
         this.toastr.success('User updated successfully! :)');
+
       }, err => {
         this.toastr.error('Something went wrong on update... :(');
       });
