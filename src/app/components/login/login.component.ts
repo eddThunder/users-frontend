@@ -31,14 +31,14 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
     console.clear();
-    
+
     this.authService.getUserAuthentication(username, password).subscribe((data: any) => {
 
       localStorage.setItem(CommonConstants.token.usersTokenConstant, data.access_token);
       localStorage.setItem(CommonConstants.user.userRolesKeyConstant, data.roles);
 
       this.loading = false;
-      this.router.navigate(['home']);
+      this.router.navigate(['home/welcome']);
     }, err => {
       this.loading = false;
       this.toastr.error('Something went wrong :(');

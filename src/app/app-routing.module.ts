@@ -10,6 +10,7 @@ import { Page1Component } from './components/page1/page1.component';
 import { Page2Component } from './components/page2/page2.component';
 import { Page3Component } from './components/page3/page3.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { homedir } from 'os';
 
 
 
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'home', component: LayoutComponent, canActivate: [AuthGuard], children:
     [
+      {
+        path: 'welcome',
+        component: HomeComponent
+      },
       {
         path: 'admin',
         component: AdminComponent,
