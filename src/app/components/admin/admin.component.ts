@@ -59,6 +59,7 @@ export class AdminComponent implements OnInit {
 
   newUser() {
     this.showDialog = true;
+    this.modal.configModalForm(null);
   }
 
   deleteUser(id: number) {
