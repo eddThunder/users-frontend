@@ -55,6 +55,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem(CommonConstants.token.usersTokenConstant);
+    localStorage.removeItem(CommonConstants.user.userRolesKeyConstant);
     this.currentUser = null;
     this.router.navigate(['login']);
   }
