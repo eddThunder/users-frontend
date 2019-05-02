@@ -75,6 +75,7 @@ export class UserModalComponent implements OnInit {
       user.Id =  this.selectedUser.Id;
       this.userService.updateUser(user).subscribe(data => {
         this.toastr.success('User updated successfully! :)');
+        this.userCreateEvent.emit(true);
       }, err => {
         this.toastr.error('Something went wrong on update... :(');
       });
