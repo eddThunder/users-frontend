@@ -82,6 +82,13 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  onUserCreate(event) {
+    if (event) {
+      this.showDialog = false;
+      this.getUsersList();
+    }
+  }
+
   allowedToOperate(userId: number): boolean {
     return  this.loggedUser ? userId === this.loggedUser.Id : false;
   }

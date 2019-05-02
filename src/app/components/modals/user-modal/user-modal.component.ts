@@ -30,6 +30,7 @@ export class UserModalComponent implements OnInit {
   @Input() closable = true;
   @Input() visible: boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() userCreateEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @Input() selectedUser: User;
 
@@ -74,7 +75,6 @@ export class UserModalComponent implements OnInit {
       user.Id =  this.selectedUser.Id;
       this.userService.updateUser(user).subscribe(data => {
         this.toastr.success('User updated successfully! :)');
-
       }, err => {
         this.toastr.error('Something went wrong on update... :(');
       });
@@ -86,6 +86,7 @@ export class UserModalComponent implements OnInit {
 
       this.userService.createUser(user).subscribe(data => {
         this.toastr.success('User created successfully! :)');
+        this.userCreateEvent.emit(true);
       }, err => {
         this.toastr.error('Something went wrong on create... :(');
       });

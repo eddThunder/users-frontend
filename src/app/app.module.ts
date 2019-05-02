@@ -22,6 +22,7 @@ import { UserModalComponent } from './components/modals/user-modal/user-modal.co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxLoadingModule } from 'ngx-loading';
+import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { NgxLoadingModule } from 'ngx-loading';
     Page2Component,
     Page3Component,
     LayoutComponent,
-    UserModalComponent
+    UserModalComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,
