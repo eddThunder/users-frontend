@@ -10,6 +10,7 @@ import { Page1Component } from './components/page1/page1.component';
 import { Page2Component } from './components/page2/page2.component';
 import { Page3Component } from './components/page3/page3.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 
 
 
@@ -18,9 +19,14 @@ const routes: Routes = [
   {path: '' , redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
 
+
   {
     path: 'home', component: LayoutComponent, canActivate: [AuthGuard], children:
     [
+      {
+        path: 'forbidden',
+        component: ForbiddenComponent
+      },
       {
         path: 'welcome',
         component: HomeComponent

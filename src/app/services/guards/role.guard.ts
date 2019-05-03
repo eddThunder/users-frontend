@@ -20,12 +20,12 @@ export class RoleGuard implements CanActivate {
     if (roles) {
       const hasPermision = this.authService.hasPermisionFor(roles);
       if (!hasPermision) {
-        this.toastr.error('UNAUTHORIZED');
+        this.router.navigate(['home/forbidden']);
       }
 
       return hasPermision;
     } else {
-      this.toastr.error('UNAUTHORIZED');
+      this.router.navigate(['home/forbidden']);
       return false;
     }
    }

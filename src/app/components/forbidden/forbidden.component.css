@@ -1,0 +1,17 @@
+
+.container{
+    margin-top: 3em;
+}
+
+h1.forbidden{
+    margin: 0.3em;
+    font-size: 15rem;
+    text-align: center;
+    opacity: 0.5;
+}
+
+.grumpycat {
+    max-width: 500px;
+    height: 400px;
+    opacity: 0.5;
+}
