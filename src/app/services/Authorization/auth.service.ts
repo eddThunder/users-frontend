@@ -3,7 +3,6 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonConstants } from 'src/app/constants/constants';
-import { RolesService } from '../roles/roles.service';
 import { User } from 'src/app/models/User';
 
 
@@ -19,7 +18,7 @@ export class AuthService {
   getUserAuthentication(username: string, password: string) {
     const url = environment.ApiBaseUrl + 'token';
     const body = `grant_type=password&username=${username}&password=${password}`;
-    // const requestHeader = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+
     return this.http.post(url, body);
   }
 
