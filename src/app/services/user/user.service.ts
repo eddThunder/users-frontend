@@ -16,7 +16,7 @@ export class UserService {
   }
 
   deleteUser(userId: number) {
-    return this.http.get(environment.ApiBaseUrl + 'users/delete/' + userId);
+    return this.http.delete(environment.ApiBaseUrl + 'users/delete/' + userId);
   }
 
   updateUser(user: User) {
